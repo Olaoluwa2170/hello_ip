@@ -14,7 +14,7 @@ app.get('/api/hello', async (req, res) => {
     let location = 'Unknown';
     try {
         const ipstackResponse = await axios.get(ipstackUrl);
-        location = ipstackResponse.data.country_name || 'Nigeria';
+        location = await ipstackResponse.data.country_name || 'Nigeria';
     } catch (error) {
         console.error('Error fetching location:', error);
     }
@@ -23,16 +23,16 @@ app.get('/api/hello', async (req, res) => {
     const weatherApiKey = process.env.OPENWEATHER_API;
     const weatherUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=${weatherApiKey}`
 
-    let temperature = 'Unknown';
+    let temperature = '73';
     try {
         const weatherResponse = await axios.get(weatherUrl);
-        temperature = weatherResponse.data.main.temp || '43';
+        temperature = await weatherResponse.data.main.temp;
         console.log(weatherResponse.data)
     } catch (error) {
         console.error('Error fetching weather:', error);
     }
 
-    const greeting = `hello, ${visitorName}!, the temperature is ${temperature} degrees Celsius in ${location}`;
+    const greeting = await `hello, ${visitorName}!, the temperature is ${temperature} degrees Celsius in ${location}`;
 
     res.json({
         client_ip: clientIp,
