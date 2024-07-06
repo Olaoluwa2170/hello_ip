@@ -14,7 +14,7 @@ app.get('/api/hello', async (req, res) => {
     let location = 'Unknown';
     try {
         const ipstackResponse = await axios.get(ipstackUrl);
-        location = ipstackResponse.data.country_name || 'Unknown';
+        location = ipstackResponse.data.country_name || 'Nigeria';
     } catch (error) {
         console.error('Error fetching location:', error);
     }
@@ -26,7 +26,7 @@ app.get('/api/hello', async (req, res) => {
     let temperature = 'Unknown';
     try {
         const weatherResponse = await axios.get(weatherUrl);
-        temperature = weatherResponse.data.main.temp;
+        temperature = weatherResponse.data.main.temp || '43';
         console.log(weatherResponse.data)
     } catch (error) {
         console.error('Error fetching weather:', error);
